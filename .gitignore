@@ -1,0 +1,51 @@
+# Node modules
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs
+*.log
+lerna-debug.log*
+
+# Build directories
+dist/
+build/
+out/
+tmp/
+temp/
+
+# Cache
+.cache/
+.next/
+.nuxt/
+.svelte-kit/
+vite-dist/
+.vite/
+coverage/
+*.tsbuildinfo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE / Editor
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Test outputs
+coverage/
+test-results/
+juni/
