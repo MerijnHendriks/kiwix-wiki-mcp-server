@@ -8,11 +8,7 @@ const USER_AGENT = "kiwix-mcp-server/1.0";
 // Create server instance
 const server = new McpServer({
   name: "kiwix-wiki",
-  version: "1.0.0",
-  capabilities: {
-    resources: {},
-    tools: {},
-  },
+  version: "1.0.0"
 });
 
 // Helper function for making Kiwix API requests
@@ -91,13 +87,16 @@ function formatSearchResults(results: SearchResult[]): string {
 }
 
 // Register Kiwix tools
-server.tool(
+server.registerTool(
   "search_wiki",
-  "Search for articles in the offline wiki",
   {
-    query: z.string().describe("Search query for wiki articles"),
-    library: z.string().optional().describe("Library ID to search in (optional, uses default if not specified)"),
-    limit: z.number().min(1).max(50).default(10).describe("Maximum number of results to return (default: 10)")
+    title: "Search wiki",
+    description: "Search for articles in the offline wiki",
+    inputSchema: {
+      query: z.string().describe("Search query for wiki articles"),
+      library: z.string().optional().describe("Library ID to search in (optional, uses default if not specified)"),
+      limit: z.number().min(1).max(50).default(10).describe("Maximum number of results to return (default: 10)")
+    }
   },
   async ({ query, library, limit }) => {
     try {
@@ -165,12 +164,15 @@ server.tool(
   },
 );
 
-server.tool(
+server.registerTool(
   "get_article",
-  "Get the full content of a specific wiki article",
   {
-    url: z.string().describe("URL or path to the wiki article"),
-    library: z.string().optional().describe("Library ID (optional, uses default if not specified)")
+    title: "Get article",
+    description: "Get the full content of a specific wiki article",
+    inputSchema: {
+      url: z.string().describe("URL or path to the wiki article"),
+      library: z.string().optional().describe("Library ID (optional, uses default if not specified)")
+    }
   },
   async ({ url, library }) => {
     try {
@@ -234,10 +236,12 @@ server.tool(
   },
 );
 
-server.tool(
+server.registerTool(
   "list_libraries",
-  "List available offline libraries in Kiwix",
-  {},
+  {
+    title: "List libraries",
+    description: "List available offline libraries in Kiwix",
+  },
   async () => {
     try {
       const librariesData = await makeKiwixRequest("/catalog");
